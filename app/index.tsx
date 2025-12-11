@@ -1,0 +1,210 @@
+import CoinInfo from "@/components/CoinInfo";
+import Colors from "@/constants/Colors";
+import Font from "@/constants/Font";
+import FontSize from "@/constants/FontSize";
+import Spacing from "@/constants/Spacing";
+import { activitiesData, defaultCoin, MyKey } from "@/data";
+import { Ionicons, MaterialIcons } from "@expo/vector-icons";
+import { router } from "expo-router";
+import React from "react";
+import {
+  SafeAreaView,
+  ScrollView,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
+} from "react-native";
+
+const Home = () => {
+  return (
+    <ScrollView showsVerticalScrollIndicator={false}>
+      <SafeAreaView>
+        <View style={{ paddingHorizontal: Spacing * 2 }}>
+          <View
+            style={{ flexDirection: "row", justifyContent: "space-between" }}
+          >
+            <Ionicons name="search" size={24} color={Colors.text} />
+            <TouchableOpacity
+              style={{
+                flexDirection: "row",
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+            >
+              <Text
+                style={{
+                  color: Colors.text,
+                  fontSize: FontSize.medium,
+                  fontFamily: Font["poppins-semiBold"],
+                  marginRight: Spacing / 2,
+                }}
+              >
+                Wallet1
+              </Text>
+              <Ionicons name="chevron-down" size={24} color={Colors.text} />
+            </TouchableOpacity>
+            <Ionicons name="scan" size={24} color={Colors.text} />
+          </View>
+          <View style={{ marginVertical: Spacing * 3 }}>
+            <View
+              style={{
+                marginTop: Spacing * 3,
+                flexDirection: "row",
+                backgroundColor: Colors.lightBackground,
+                paddingVertical: Spacing / 2,
+                borderRadius: Spacing * 4,
+                width: Spacing * 15,
+                alignItems: "center",
+                justifyContent: "center",
+                alignSelf: "center",
+              }}
+            >
+              <Text
+                style={{
+                  color: Colors.text,
+                  fontSize: FontSize.small,
+                  fontFamily: Font["poppins-regular"],
+                  width: Spacing * 10,
+                }}
+                numberOfLines={1}
+              >
+                {MyKey}
+              </Text>
+              <Ionicons name="copy-outline" size={16} color={Colors.primary} />
+            </View>
+
+            <View style={{ flexDirection: "row", alignSelf: "center" }}>
+              <Text
+                style={{
+                  color: Colors.text,
+                  fontSize: FontSize.xxLarge * 2,
+                  fontFamily: Font["poppins-regular"],
+                }}
+              >
+                $
+              </Text>
+              <TextInput
+                style={{
+                  color: Colors.text,
+                  fontSize: FontSize.xxLarge * 2,
+                  fontFamily: Font["poppins-regular"],
+                }}
+              />
+            </View>
+            <View
+              style={{
+                flexDirection: "row",
+                justifyContent: "space-between",
+                marginVertical: Spacing * 2,
+              }}
+            >
+              <TouchableOpacity
+                onPress={() => router.push("/send")}
+                style={{
+                  backgroundColor: Colors.primary,
+                  paddingHorizontal: Spacing * 3,
+                  paddingVertical: Spacing * 2,
+                  borderRadius: Spacing * 10,
+                  flexDirection: "row",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  width: "45%",
+                }}
+              >
+                <Text
+                  style={{
+                    fontSize: FontSize.large,
+                    color: Colors.onPrimary,
+                    marginRight: Spacing,
+                  }}
+                >
+                  Send
+                </Text>
+                <MaterialIcons
+                  name="arrow-outward"
+                  size={24}
+                  color={Colors.onPrimary}
+                />
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={{
+                  backgroundColor: Colors.secondary,
+                  paddingHorizontal: Spacing * 3,
+                  paddingVertical: Spacing * 2,
+                  borderRadius: Spacing * 10,
+                  flexDirection: "row",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  width: "45%",
+                }}
+              >
+                <Text
+                  style={{
+                    fontSize: FontSize.large,
+                    color: Colors.onSecondary,
+                    marginRight: Spacing,
+                  }}
+                >
+                  Receive
+                </Text>
+                <MaterialIcons
+                  name="arrow-outward"
+                  size={24}
+                  color={Colors.onSecondary}
+                />
+              </TouchableOpacity>
+            </View>
+          </View>
+        </View>
+        <View
+          style={{
+            backgroundColor: Colors.lightBackground,
+            paddingHorizontal: Spacing * 2,
+            paddingTop: Spacing * 3,
+            paddingBottom: Spacing * 6,
+            borderTopRightRadius: Spacing * 3,
+            borderTopLeftRadius: Spacing * 3,
+          }}
+        >
+          <CoinInfo info={defaultCoin} />
+        </View>
+        <View
+          style={{
+            paddingHorizontal: Spacing * 2,
+            paddingVertical: Spacing * 3,
+            backgroundColor: Colors.white,
+            marginTop: -Spacing * 4,
+            borderTopRightRadius: Spacing * 3,
+            borderTopLeftRadius: Spacing * 3,
+          }}
+        >
+          <Text
+            style={{
+              color: Colors.blackText,
+              fontFamily: Font["poppins-semiBold"],
+              fontSize: FontSize.large,
+              marginBottom: Spacing * 2,
+            }}
+          >
+            Activity
+          </Text>
+          {activitiesData.map((activity) => (
+            <View
+              style={{
+                borderTopWidth: 0.2,
+                borderColor: Colors.lightText,
+                paddingVertical: Spacing,
+              }}
+              key={activity.id}
+            >
+              <CoinInfo theme="light" info={activity} />
+            </View>
+          ))}
+        </View>
+      </SafeAreaView>
+    </ScrollView>
+  );
+};
+
+export default Home;
